@@ -13,6 +13,7 @@ let milliseconds = 0;
 let isPaused = false;
 
 startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
 
 function startTimer() {
     interval = setInterval(() => {
@@ -32,10 +33,19 @@ function startTimer() {
 
             minutesEl.textContent = formatTime(minutes);
             secondsEl.textContent = formatTime(seconds);
-            millisecondsEl.textContent = milliseconds;
+            millisecondsEl.textContent = formatMilliseconds(milliseconds);
         }
 
     },10);
+
+    startBtn.style.display = "none";
+    pauseBtn.style.display = "block";
+}
+
+function pauseTimer() {
+    isPaused = true
+    pauseBtn.style.display = "none";
+    resumeBtn.style.display = "block";
 }
 
 function formatTime(time) {
@@ -43,5 +53,5 @@ function formatTime(time) {
 }
 
 function formatMilliseconds(time) {
-    return time < 100 ? time.padStart(3, "0") : time;
+    return time < 100 ? `${time}`.padStart(3, "0") : time;
 }
